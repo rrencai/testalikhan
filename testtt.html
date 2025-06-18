@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Данный тест по грамматике английского языка на много сложнее ребята. Alik Ongarooooov yo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 25px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .question {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .question-number {
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .options {
+            margin-left: 25px;
+            margin-top: 15px;
+        }
+        .option {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        .option:hover {
+            background-color: #f8f9fa;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 220px;
+            padding: 12px;
+            margin: 30px auto;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        #result {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-top: 20px;
+        }
+        .progress {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#2ecc71 0% var(--percentage), #ecf0f1 var(--percentage) 100%);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .topic-result {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .topic-name {
+            font-weight: 500;
+        }
+        .topic-score {
+            font-weight: bold;
+        }
+        .excellent {
+            color: #27ae60;
+        }
+        .good {
+            color: #f39c12;
+        }
+        .poor {
+            color: #e74c3c;
+        }
+        #detailedResults {
+            text-align: left;
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Продвинутый тест по грамматике английского языка</h1>
+    <div class="progress">Вопрос 1 из 50</div>
+    
+    <form id="quizForm">
+        <!-- Вопросы будут вставлены здесь JavaScript -->
+    </form>
+    
+    <button id="submitBtn">Проверить результаты</button>
+    
+    <div id="result">
+        <h2>Ваш результат</h2>
+        <div class="score-circle" id="scoreCircle">
+            <span id="percentage">0%</span>
+        </div>
+        <p id="message"></p>
+        
+        <div id="detailedResults">
+            <h3>Результаты по темам</h3>
+            <div id="topicResults"></div>
+        </div>
+    </div>
+
+    <script>
+        const advancedQuestions = [
+            // 1-5: Mixed Conditionals
+            {
+                question: "1. If she ___ more careful, she wouldn't be in this situation now.",
+                options: ["was", "had been", "would be", "has been"],
+                answer: 1,
+                topic: "Mixed Conditionals",
+                explanation: "Правильный ответ: 'had been' - это смешанный условный тип (3+2), где условие относится к прошлому, а результат - к настоящему."
+            },
+            {
+                question: "2. ___ you changed your mind, I wouldn't be here now.",
+                options: ["Had", "Should", "Were", "Unless"],
+                answer: 0,
+                topic: "Mixed Conditionals",
+                explanation: "Правильный ответ: 'Had' - инверсия в условных предложениях (Had you changed = If you had changed)."
+            },
+            {
+                question: "3. If I ___ to you that day, we ___ in this mess now.",
+                options: ["listened / wouldn't be", "had listened / wouldn't be", "would listen / weren't", "have listened / won't be"],
+                answer: 1,
+                topic: "Mixed Conditionals",
+                explanation: "Правильный ответ: 'had listened / wouldn't be' - снова смешанный тип (3+2), где условие в прошлом, а результат в настоящем."
+            },
+            {
+                question: "4. Were I ___ the truth, I ___ differently now.",
+                options: ["to know / would act", "known / would have acted", "knowing / will act", "have known / acted"],
+                answer: 0,
+                topic: "Mixed Conditionals",
+                explanation: "Правильный ответ: 'to know / would act' - это формальное условное предложение (Were I to know = If I knew) с результатом в настоящем."
+            },
+            {
+                question: "5. Supposing he ___ the truth, how ___ you react now?",
+                options: ["knew / would", "had known / would have", "knows / will", "has known / would"],
+                answer: 0,
+                topic: "Mixed Conditionals",
+                explanation: "Правильный ответ: 'knew / would' - supposing здесь работает как if для нереального настоящего."
+            },
+            
+            // 6-10: Advanced Modals
+            {
+                question: "6. You ___ exhausted after such a long journey; why don't you rest?",
+                options: ["must be", "must have been", "should be", "ought be"],
+                answer: 0,
+                topic: "Advanced Modals",
+                explanation: "Правильный ответ: 'must be' - логическое предположение о настоящем."
+            },
+            {
+                question: "7. She ___ the report by now; she started working on it early this morning.",
+                options: ["should finish", "must have finished", "ought to finish", "might finish"],
+                answer: 1,
+                topic: "Advanced Modals",
+                explanation: "Правильный ответ: 'must have finished' - логическое предположение о завершенном действии."
+            },
+            {
+                question: "8. You ___ told me about the problem earlier; I could have helped.",
+                options: ["must have", "should have", "might have", "would have"],
+                answer: 1,
+                topic: "Advanced Modals",
+                explanation: "Правильный ответ: 'should have' - упрек о невыполненном действии в прошлом."
+            },
+            {
+                question: "9. They ___ received our message; otherwise they would have replied.",
+                options: ["mustn't have", "can't have", "shouldn't have", "ought not have"],
+                answer: 1,
+                topic: "Advanced Modals",
+                explanation: "Правильный ответ: 'can't have' - отрицательное логическое предположение о прошлом."
+            },
+            {
+                question: "10. He ___ be the director; he looks far too young.",
+                options: ["mustn't", "can't", "shouldn't", "won't"],
+                answer: 1,
+                topic: "Advanced Modals",
+                explanation: "Правильный ответ: 'can't' - отрицательное предположение о настоящем."
+            },
+            
+            // 11-15: Inversion
+            {
+                question: "11. ___ should you open this document.",
+                options: ["Under no circumstances", "Only by", "Not only", "Hardly"],
+                answer: 0,
+                topic: "Inversion",
+                explanation: "Правильный ответ: 'Under no circumstances' - инверсия после отрицательных выражений в начале предложения."
+            },
+            {
+                question: "12. ___ had I arrived than the meeting started.",
+                options: ["No sooner", "Hardly", "Scarcely", "Only when"],
+                answer: 0,
+                topic: "Inversion",
+                explanation: "Правильный ответ: 'No sooner' - требует инверсии и конструкции 'than'."
+            },
+            {
+                question: "13. ___ does she speak Spanish, but she also writes it perfectly.",
+                options: ["Not only", "Only if", "No sooner", "Little"],
+                answer: 0,
+                topic: "Inversion",
+                explanation: "Правильный ответ: 'Not only' - требует инверсии в первой части и 'but also' во второй."
+            },
+            {
+                question: "14. ___ did I realize how serious the situation was.",
+                options: ["Only then", "No sooner", "Hardly", "Never before"],
+                answer: 0,
+                topic: "Inversion",
+                explanation: "Правильный ответ: 'Only then' - инверсия после 'only' с наречиями времени."
+            },
+            {
+                question: "15. So difficult ___ that few students passed the exam.",
+                options: ["the test was", "was the test", "had the test been", "the test had been"],
+                answer: 1,
+                topic: "Inversion",
+                explanation: "Правильный ответ: 'was the test' - инверсия после 'so + adjective' в начале предложения."
+            },
+            
+            // 16-20: Cleft Sentences
+            {
+                question: "16. ___ was his attitude that annoyed me.",
+                options: ["It", "What", "There", "That"],
+                answer: 1,
+                topic: "Cleft Sentences",
+                explanation: "Правильный ответ: 'What' - cleft sentence для выделения подлежащего."
+            },
+            {
+                question: "17. It was not until 2010 ___ the company became profitable.",
+                options: ["when", "that", "which", "then"],
+                answer: 1,
+                topic: "Cleft Sentences",
+                explanation: "Правильный ответ: 'that' - стандартная конструкция после 'it was not until'."
+            },
+            {
+                question: "18. ___ surprised me was how quickly he learned.",
+                options: ["It", "What", "That", "Which"],
+                answer: 1,
+                topic: "Cleft Sentences",
+                explanation: "Правильный ответ: 'What' - cleft sentence для выделения подлежащего."
+            },
+            {
+                question: "19. It's the dedication ___ makes the difference, not the talent.",
+                options: ["what", "which", "that", "who"],
+                answer: 2,
+                topic: "Cleft Sentences",
+                explanation: "Правильный ответ: 'that' - стандартная конструкция cleft sentence."
+            },
+            {
+                question: "20. ___ they need now is more time, not more money.",
+                options: ["It", "That", "What", "Which"],
+                answer: 2,
+                topic: "Cleft Sentences",
+                explanation: "Правильный ответ: 'What' - cleft sentence для выделения дополнения."
+            },
+            
+            // 21-25: Advanced Passive
+            {
+                question: "21. The building is believed ___ in the 16th century.",
+                options: ["to build", "to have been built", "being built", "having built"],
+                answer: 1,
+                topic: "Advanced Passive",
+                explanation: "Правильный ответ: 'to have been built' - пассивный инфинитив для завершенного действия в прошлом."
+            },
+            {
+                question: "22. She doesn't like ___ what to do.",
+                options: ["telling", "being told", "having told", "to tell"],
+                answer: 1,
+                topic: "Advanced Passive",
+                explanation: "Правильный ответ: 'being told' - пассивная форма после глагола 'like'."
+            },
+            {
+                question: "23. The report ___ by the committee right now.",
+                options: ["is considered", "is being considered", "has been considering", "considers"],
+                answer: 1,
+                topic: "Advanced Passive",
+                explanation: "Правильный ответ: 'is being considered' - пассивное продолженное время для действия в процессе."
+            },
+            {
+                question: "24. The decision ___ before we arrived.",
+                options: ["had already been made", "has already been made", "was already made", "had already made"],
+                answer: 0,
+                topic: "Advanced Passive",
+                explanation: "Правильный ответ: 'had already been made' - Past Perfect Passive для действия, завершенного до другого действия в прошлом."
+            },
+            {
+                question: "25. The new law is expected ___ next month.",
+                options: ["to pass", "to be passed", "passing", "being passed"],
+                answer: 1,
+                topic: "Advanced Passive",
+                explanation: "Правильный ответ: 'to be passed' - пассивный инфинитив для будущего действия."
+            },
+            
+            // 26-30: Subjunctive
+            {
+                question: "26. It's essential that he ___ informed immediately.",
+                options: ["is", "be", "will be", "must be"],
+                answer: 1,
+                topic: "Subjunctive",
+                explanation: "Правильный ответ: 'be' - сослагательное наклонение после 'it's essential that'."
+            },
+            {
+                question: "27. I'd rather you ___ me the truth.",
+                options: ["tell", "told", "would tell", "had told"],
+                answer: 1,
+                topic: "Subjunctive",
+                explanation: "Правильный ответ: 'told' - конструкция 'would rather' с другим субъектом требует Past Simple."
+            },
+            {
+                question: "28. If only she ___ more careful!",
+                options: ["was", "were", "had been", "would be"],
+                answer: 1,
+                topic: "Subjunctive",
+                explanation: "Правильный ответ: 'were' - сослагательное наклонение после 'if only' для нереального настоящего."
+            },
+            {
+                question: "29. The manager demanded that the report ___ by Friday.",
+                options: ["was finished", "be finished", "would be finished", "had been finished"],
+                answer: 1,
+                topic: "Subjunctive",
+                explanation: "Правильный ответ: 'be finished' - сослагательное наклонение после глаголов требования."
+            },
+            {
+                question: "30. It's high time you ___ responsible for your actions.",
+                options: ["are", "were", "will be", "have been"],
+                answer: 1,
+                topic: "Subjunctive",
+                explanation: "Правильный ответ: 'were' - конструкция 'it's high time' требует Past Simple."
+            },
+            
+            // 31-35: Ellipsis & Substitution
+            {
+                question: "31. She can speak French better than ___.",
+                options: ["I", "me", "I can", "I do"],
+                answer: 2,
+                topic: "Ellipsis & Substitution",
+                explanation: "Правильный ответ: 'I can' - необходимо сохранить модальный глагол при сравнении."
+            },
+            {
+                question: "32. A: Do you think he'll come? B: I hope ___.",
+                options: ["it", "so", "that", "this"],
+                answer: 1,
+                topic: "Ellipsis & Substitution",
+                explanation: "Правильный ответ: 'so' - замена целого предложения в кратком ответе."
+            },
+            {
+                question: "33. He promised to help, but he ___.",
+                options: ["didn't", "hadn't", "wouldn't", "wasn't"],
+                answer: 0,
+                topic: "Ellipsis & Substitution",
+                explanation: "Правильный ответ: 'didn't' - опущение глагола после вспомогательного в кратком ответе."
+            },
+            {
+                question: "34. She works harder than ___ necessary.",
+                options: ["is", "it is", "what is", "being"],
+                answer: 0,
+                topic: "Ellipsis & Substitution",
+                explanation: "Правильный ответ: 'is' - опущение подлежащего в сравнительной конструкции."
+            },
+            {
+                question: "35. A: Are you coming? B: I ___.",
+                options: ["hope it", "think that", "suppose so", "believe this"],
+                answer: 2,
+                topic: "Ellipsis & Substitution",
+                explanation: "Правильный ответ: 'suppose so' - стандартный краткий ответ с заменой."
+            },
+            
+            // 36-40: Advanced Relative Clauses
+            {
+                question: "36. She has three brothers, all of ___ are doctors.",
+                options: ["them", "whom", "which", "who"],
+                answer: 1,
+                topic: "Advanced Relative Clauses",
+                explanation: "Правильный ответ: 'whom' - неопределяющее придаточное с предлогом."
+            },
+            {
+                question: "37. The reason ___ I'm calling is to ask for advice.",
+                options: ["why", "because", "for", "that"],
+                answer: 0,
+                topic: "Advanced Relative Clauses",
+                explanation: "Правильный ответ: 'why' - относительное наречие для 'reason'."
+            },
+            {
+                question: "38. It's the same man ___ was here yesterday.",
+                options: ["as", "that", "who", "which"],
+                answer: 0,
+                topic: "Advanced Relative Clauses",
+                explanation: "Правильный ответ: 'as' - конструкция 'the same...as'."
+            },
+            {
+                question: "39. He failed the exam, ___ was unexpected.",
+                options: ["that", "what", "which", "this"],
+                answer: 2,
+                topic: "Advanced Relative Clauses",
+                explanation: "Правильный ответ: 'which' - неопределяющее придаточное, относящееся ко всему предложению."
+            },
+            {
+                question: "40. There isn't much ___ can be done now.",
+                options: ["that", "which", "what", "who"],
+                answer: 0,
+                topic: "Advanced Relative Clauses",
+                explanation: "Правильный ответ: 'that' - относительное местоимение после 'much'."
+            },
+            
+            // 41-45: Participle Clauses
+            {
+                question: "41. ___ by the news, she immediately called her family.",
+                options: ["Shocked", "Shocking", "Having shocked", "Being shocked"],
+                answer: 0,
+                topic: "Participle Clauses",
+                explanation: "Правильный ответ: 'Shocked' - причастие прошедшего времени показывает пассивное значение."
+            },
+            {
+                question: "42. ___ the report, he noticed several errors.",
+                options: ["Reading", "Having read", "Being read", "Read"],
+                answer: 1,
+                topic: "Participle Clauses",
+                explanation: "Правильный ответ: 'Having read' - перфектное причастие показывает завершенность действия."
+            },
+            {
+                question: "43. The children sat quietly, ___ to the teacher.",
+                options: ["listened", "listening", "having listened", "being listened"],
+                answer: 1,
+                topic: "Participle Clauses",
+                explanation: "Правильный ответ: 'listening' - причастие настоящего времени показывает одновременность."
+            },
+            {
+                question: "44. ___ in London all his life, he knew the city well.",
+                options: ["Lived", "Living", "Having lived", "Being lived"],
+                answer: 2,
+                topic: "Participle Clauses",
+                explanation: "Правильный ответ: 'Having lived' - перфектное причастие показывает действие перед основным."
+            },
+            {
+                question: "45. ___ carefully, the instructions were easy to follow.",
+                options: ["Written", "Writing", "Having written", "Being written"],
+                answer: 0,
+                topic: "Participle Clauses",
+                explanation: "Правильный ответ: 'Written' - причастие прошедшего времени в пассивном значении."
+            },
+            
+            // 46-50: Inversion in Conditionals
+            {
+                question: "46. ___ you need any help, don't hesitate to call.",
+                options: ["Should", "Had", "Were", "If"],
+                answer: 0,
+                topic: "Inversion in Conditionals",
+                explanation: "Правильный ответ: 'Should' - инверсия в условных предложениях 1 типа (Should you need = If you need)."
+            },
+            {
+                question: "47. ___ I known about the problem earlier, I would have helped.",
+                options: ["Had", "Should", "Were", "If"],
+                answer: 0,
+                topic: "Inversion in Conditionals",
+                explanation: "Правильный ответ: 'Had' - инверсия в условных предложениях 3 типа (Had I known = If I had known)."
+            },
+            {
+                question: "48. ___ he more experienced, he would get the job.",
+                options: ["Had", "Should", "Were", "If"],
+                answer: 2,
+                topic: "Inversion in Conditionals",
+                explanation: "Правильный ответ: 'Were' - инверсия в условных предложениях 2 типа (Were he = If he were)."
+            },
+            {
+                question: "49. ___ you to change your mind, let me know immediately.",
+                options: ["Had", "Should", "Were", "If"],
+                answer: 2,
+                topic: "Inversion in Conditionals",
+                explanation: "Правильный ответ: 'Were' - инверсия с 'were + to' для маловероятного будущего."
+            },
+            {
+                question: "50. ___ the situation any worse, we would have left.",
+                options: ["Had", "Should", "Were", "If"],
+                answer: 2,
+                topic: "Inversion in Conditionals",
+                explanation: "Правильный ответ: 'Were' - инверсия в условных предложениях (Were the situation = If the situation were)."
+            }
+        ];
+
+        const quizForm = document.getElementById('quizForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultDiv = document.getElementById('result');
+        const scoreCircle = document.getElementById('scoreCircle');
+        const percentageSpan = document.getElementById('percentage');
+        const messagePara = document.getElementById('message');
+        const topicResultsDiv = document.getElementById('topicResults');
+        const progressDiv = document.querySelector('.progress');
+
+        // Отображаем вопросы
+        function displayQuestions() {
+            advancedQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                
+                const questionNumber = document.createElement('div');
+                questionNumber.className = 'question-number';
+                questionNumber.textContent = index + 1;
+                questionDiv.appendChild(questionNumber);
+                
+                const questionText = document.createElement('p');
+                questionText.textContent = q.question;
+                questionDiv.appendChild(questionText);
+                
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+                
+                q.options.forEach((option, i) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `question${index}`;
+                    radio.id = `question${index}option${i}`;
+                    radio.value = i;
+                    
+                    const label = document.createElement('label');
+                    label.htmlFor = `question${index}option${i}`;
+                    label.textContent = option;
+                    
+                    optionDiv.appendChild(radio);
+                    optionDiv.appendChild(label);
+                    optionsDiv.appendChild(optionDiv);
+                });
+                
+                questionDiv.appendChild(optionsDiv);
+                quizForm.appendChild(questionDiv);
+            });
+            
+            progressDiv.textContent = `Вопрос 1 из ${advancedQuestions.length}`;
+        }
+
+        // Проверяем ответы
+        function checkAnswers() {
+            let score = 0;
+            const topicResults = {};
+            const userAnswers = [];
+            
+            advancedQuestions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                const isCorrect = selectedOption && parseInt(selectedOption.value) === q.answer;
+                
+                if (isCorrect) {
+                    score++;
+                }
+                
+                // Сохраняем ответ пользователя
+                userAnswers.push({
+                    question: q.question,
+                    userAnswer: selectedOption ? q.options[parseInt(selectedOption.value)] : 'Не ответил',
+                    correctAnswer: q.options[q.answer],
+                    isCorrect,
+                    explanation: q.explanation,
+                    topic: q.topic
+                });
+                
+                // Учитываем результаты по темам
+                if (!topicResults[q.topic]) {
+                    topicResults[q.topic] = { correct: 0, total: 0 };
+                }
+                
+                if (isCorrect) {
+                    topicResults[q.topic].correct++;
+                }
+                topicResults[q.topic].total++;
+            });
+            
+            return { score, topicResults, userAnswers };
+        }
+
+        // Показываем результаты
+        function showResults() {
+            const { score, topicResults, userAnswers } = checkAnswers();
+            const percentage = Math.round((score / advancedQuestions.length) * 100);
+            
+            // Обновляем круговой индикатор
+            scoreCircle.style.setProperty('--percentage', `${percentage}%`);
+            percentageSpan.textContent = `${percentage}%`;
+            
+            // Показываем сообщение в зависимости от результата
+            let message = "";
+            if (percentage >= 90) {
+                message = "Превосходно! Ваше знание английской грамматики на уровне носителя.";
+                messagePara.className = 'excellent';
+            } else if (percentage >= 70) {
+                message = "Очень хорошо! У вас продвинутый уровень грамматики, но есть что улучшить.";
+                messagePara.className = 'good';
+            } else if (percentage >= 50) {
+                message = "Неплохо! Вы знаете основные правила, но сложные конструкции требуют внимания.";
+                messagePara.className = 'good';
+            } else {
+                message = "Потребуется больше практики. Рекомендуем повторить продвинутые темы грамматики.";
+                messagePara.className = 'poor';
+            }
+            
+            messagePara.innerHTML = `<strong>${message}</strong><br>Вы ответили правильно на ${score} из ${advancedQuestions.length} вопросов.`;
+            
+            // Показываем результаты по темам
+            topicResultsDiv.innerHTML = '';
+            for (const topic in topicResults) {
+                const topicDiv = document.createElement('div');
+                topicDiv.className = 'topic-result';
+                
+                const topicName = document.createElement('span');
+                topicName.className = 'topic-name';
+                topicName.textContent = topic;
+                
+                const topicScore = document.createElement('span');
+                topicScore.className = 'topic-score';
+                const topicPercentage = Math.round((topicResults[topic].correct / topicResults[topic].total) * 100);
+                topicScore.textContent = `${topicResults[topic].correct}/${topicResults[topic].total} (${topicPercentage}%)`;
+                
+                if (topicPercentage >= 80) {
+                    topicScore.classList.add('excellent');
+                } else if (topicPercentage >= 50) {
+                    topicScore.classList.add('good');
+                } else {
+                    topicScore.classList.add('poor');
+                }
+                
+                topicDiv.appendChild(topicName);
+                topicDiv.appendChild(topicScore);
+                topicResultsDiv.appendChild(topicDiv);
+            }
+            
+            // Показываем результат
+            resultDiv.style.display = 'block';
+            window.scrollTo(0, document.body.scrollHeight);
+            
+            // Можно добавить вывод подробных результатов с объяснениями
+            // console.log(userAnswers); // Для отладки
+        }
+
+        // Инициализация теста
+        displayQuestions();
+
+        // Обработчик отправки формы
+        submitBtn.addEventListener('click', showResults);
+    </script>
+</body>
+</html>
